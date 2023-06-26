@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import apiClient, { CanceledError } from "../services/api-client";
 
-interface Game {
+// rawg.io => games
+export interface Game {
   id: number;
   name: string;
+  background_image: string;
 }
 
 interface FetchGamesResponse {
