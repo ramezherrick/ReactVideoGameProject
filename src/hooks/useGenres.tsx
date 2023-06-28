@@ -1,39 +1,40 @@
 import React, { useEffect, useState } from "react";
 import apiClient, { CanceledError } from "../services/api-client";
+import useGenericHook from "./GenericHook";
 
-interface Genres {
+export interface Genres {
   id: number;
   name: string;
 }
-interface FetchGenresResponse {
-  count: number;
-  results: Genres[];
-}
-const useGenres = () => {
-  const [genres, setGenres] = useState<Genres[]>([]);
-  const [error, setError] = useState("");
-  const [isLoading, setLoading] = useState(false);
+// interface FetchGenresResponse {
+//   count: number;
+//   results: Genres[];
+// }
+// const useGenres = () => {
+//   const [genres, setGenres] = useState<Genres[]>([]);
+//   const [error, setError] = useState("");
+//   const [isLoading, setLoading] = useState(false);
 
-  useEffect(() => {
-    const controller = new AbortController();
+//   useEffect(() => {
+//     const controller = new AbortController();
 
-    setLoading(true);
-    apiClient
-      .get<FetchGenresResponse>("/genres", { signal: controller.signal })
-      .then((res) => {
-        setGenres(res.data.results);
-        setLoading(false);
-      })
-      .catch((err) => {
-        if (err instanceof CanceledError) return;
-        setError(err.message);
-        setLoading(false);
-      });
+//     setLoading(true);
+//     apiClient
+//       .get<FetchGenresResponse>("/genres", { signal: controller.signal })
+//       .then((res) => {
+//         setGenres(res.data.results);
+//         setLoading(false);
+//       })
+//       .catch((err) => {
+//         if (err instanceof CanceledError) return;
+//         setError(err.message);
+//         setLoading(false);
+//       });
 
-    return () => controller.abort();
-  }, []);
+//     return () => controller.abort();
+//   }, []);
 
-  return { genres, error, isLoading };
-};
-
+//   return { genres, error, isLoading };
+// };
+const useGenres = () => useGenericHook<Genres>("/genres");
 export default useGenres;
