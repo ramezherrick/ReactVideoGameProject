@@ -5,6 +5,7 @@ import useGenericHook from "./GenericHook";
 export interface Genres {
   id: number;
   name: string;
+  image_background: string;
 }
 // interface FetchGenresResponse {
 //   count: number;
