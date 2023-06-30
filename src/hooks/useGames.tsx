@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import apiClient, { CanceledError } from "../services/api-client";
 import useGenericHook from "./GenericHook";
+import { Genres } from "./useGenres";
 
 // rawg.io => games
 export interface Game {
@@ -49,5 +50,8 @@ export interface Platform {
 //   return { games, error, isLoading };
 // };
 
-const useGames = () => useGenericHook<Game>("/games");
+const useGames = (selectedGenre: Genres | null) =>
+  useGenericHook<Game>("/games", { params: { genres: selectedGenre?.id } }, [
+    selectedGenre?.id,
+  ]);
 export default useGames;
