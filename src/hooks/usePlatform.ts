@@ -1,7 +1,7 @@
 import React from 'react'
 import useGenericHook from './GenericHook'
 
-interface Platform{
+export interface Platform{
     id: number;
     name: string;
     slug: string;
