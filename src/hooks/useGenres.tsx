@@ -1,5 +1,3 @@
-import React, { useEffect, useState } from "react";
-import apiClient, { CanceledError } from "../services/api-client";
 import useGenericHook from "./GenericHook";
 
 export interface Genres {
