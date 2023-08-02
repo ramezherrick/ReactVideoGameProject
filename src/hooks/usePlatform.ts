@@ -1,4 +1,3 @@
-import React from 'react'
 import useGenericHook from './GenericHook'
 
 export interface Platform{

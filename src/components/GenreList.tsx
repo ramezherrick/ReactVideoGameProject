@@ -1,4 +1,3 @@
-import React from "react";
 import useGenres, { Genres } from "../hooks/useGenres";
 import getCroppedImageUrl from "../services/image-url";
 
