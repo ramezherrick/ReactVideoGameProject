@@ -1,19 +1,39 @@
 import { Button, Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/react";
 import { BsChevronDown } from "react-icons/bs";
+import useGames from "../hooks/useGames";
+import { MdPermDeviceInformation } from "react-icons/md";
 
-const SortSelector = () => {
+interface Props {
+  selectedSortOrder: string;
+  onSelectSortOrder: (sortOrder: string) => void;
+}
+// rawg.io => Get a List of Games => Ordering => Available fields: name, released, added, created, updated, rating, metacritic. You can reverse the sort order adding a hyphen, for example: -released.
+const SortSelector = ({ selectedSortOrder, onSelectSortOrder }: Props) => {
+  const sortOrders = [
+    { value: "", label: "Relavance" },
+    { value: "-added", label: "Date Added" },
+    { value: "name", label: "Name" },
+    { value: "-released", label: "Release Date" },
+    { value: "-metacritic", label: "Popularity" },
+    { value: "-rating", label: "Average Rating" },
+  ];
+
+  const currentSortOrder = sortOrders.find((x) => x.value == selectedSortOrder);
   return (
     <Menu>
       <MenuButton as={Button} rightIcon={<BsChevronDown />}>
-        Sort Selector
+        {currentSortOrder?.label || "Relavance"}
       </MenuButton>
       <MenuList>
-        <MenuItem>Relavance</MenuItem>
-        <MenuItem>Date Added</MenuItem>
-        <MenuItem>Name</MenuItem>
-        <MenuItem>Release Date</MenuItem>
-        <MenuItem>Popularity</MenuItem>
-        <MenuItem>Rating</MenuItem>
+        {sortOrders.map((order) => (
+          <MenuItem
+            onClick={() => onSelectSortOrder(order.value)}
+            key={order.value}
+            value={order.value}
+          >
+            {order.label}
+          </MenuItem>
+        ))}
       </MenuList>
     </Menu>
   );
