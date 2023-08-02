@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
-import apiClient, { CanceledError } from "../services/api-client";
+import { GameQuery } from "../App";
 import useGenericHook from "./GenericHook";
 import { Genres } from "./useGenres";
+import { Platform } from "./usePlatform";
 
 // rawg.io => games
 export interface Game {
@@ -10,12 +10,6 @@ export interface Game {
   background_image: string;
   parent_platforms: { platform: Platform }[];
   metacritic: number;
-}
-
-export interface Platform {
-  id: number;
-  name: string;
-  slug: string;
 }
 
 // interface FetchGamesResponse {
@@ -50,13 +44,15 @@ export interface Platform {
 //   return { games, error, isLoading };
 // };
 
-const useGames = (
-  selectedGenre: Genres | null,
-  selectedPlatform: Platform | null
-) =>
+const useGames = (gameQuery: GameQuery) =>
   useGenericHook<Game>(
     "/games",
-    { params: { genres: selectedGenre?.id, platforms: selectedPlatform?.id } },
-    [selectedGenre?.id, selectedPlatform?.id]
+    {
+      params: {
+        genres: gameQuery.genre?.id,
+        platforms: gameQuery.platform?.id,
+      },
+    },
+    [gameQuery]
   );
 export default useGames;
