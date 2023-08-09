@@ -1,4 +1,4 @@
-import useGenericHook from "./GenericHook";
+import genres from "../data/genres";
 
 export interface Genres {
   id: number;
@@ -35,5 +35,5 @@ export interface Genres {
 
 //   return { genres, error, isLoading };
 // };
-const useGenres = () => useGenericHook<Genres>("/genres");
+const useGenres = () => ({ data: genres, error: null, isLoading: false });
 export default useGenres;
